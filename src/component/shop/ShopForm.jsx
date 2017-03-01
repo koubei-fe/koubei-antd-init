@@ -21,6 +21,31 @@ const Option = Select.Option;
 const InputGroup = Input.Group;
 const RadioGroup = Radio.Group;
 
+const getTreeNodes = (values, tree) => {
+  const nodes = [];
+  let levelList = tree;
+  values.forEach(v => {
+    if (!levelList) {
+      return;
+    }
+    const node = levelList.find(n => n.value === v);
+    if (node) {
+      nodes.push(node);
+      levelList = node.children;
+    }
+  });
+  return nodes;
+};
+
+const getBrandName = brandId => brands.find(brand => brand.id === brandId).name;
+
+const getCategoryName = categoryIds => {
+  const categoryTreeNodes = getTreeNodes(categoryIds, category);
+  return categoryTreeNodes.reduce(
+    (acc, node) => (acc === '' ? node.label : `${acc} - ${node.label}`),
+    '');
+};
+
 class ShopForm extends Component {
   constructor(props) {
     super(props);
@@ -28,9 +53,6 @@ class ShopForm extends Component {
       submitting: false,
     };
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleBrandSelect = this.handleBrandSelect.bind(this);
-    this.handleCategoryChange = this.handleCategoryChange.bind(this);
-    this.handleResidenceChange = this.handleResidenceChange.bind(this);
   }
 
   handleSubmit(e) {
@@ -41,11 +63,29 @@ class ShopForm extends Component {
     });
     validateFieldsAndScroll((err, values) => {
       if (!err) {
-        Object.assign(this.props.shop, values);
+        const areaFields = getTreeNodes(values.residence, areas);
+        const shopInfo = {
+          ...this.props.shop,
+          brandId: values.brandId,
+          brandName: getBrandName(values.brandId),
+          shopName: values.shopName,
+          provinceId: areaFields[0].value,
+          provinceName: areaFields[0].label,
+          cityId: areaFields[1].value,
+          cityName: areaFields[1].label,
+          districtId: areaFields[2] ? areaFields[2].value : '',
+          districtName: areaFields[2] ? areaFields[2].label : '',
+          categoryIds: values.categoryIds,
+          categoryName: getCategoryName(values.categoryIds),
+          address: values.address,
+          mobileNo: values.mobileNo,
+          payType: values.payType[0],
+          receiveUserId: values.receiveUserId,
+        };
         if (this.props.isEdit) {
-          store.saveShop(this.props.shop.shopId, this.props.shop);
+          store.saveShop(shopInfo.shopId, shopInfo);
         } else {
-          store.addShop(this.props.shop);
+          store.addShop(shopInfo);
         }
         this.props.router.push('shop/list');
       } else {
@@ -54,25 +94,6 @@ class ShopForm extends Component {
         });
       }
     });
-  }
-
-  handleBrandSelect(value, option) {
-    this.props.shop.brandId = value;
-    this.props.shop.brandName = option.props.title;
-  }
-
-  handleResidenceChange(value, options) {
-    [this.props.shop.provinceId, this.props.shop.cityId, this.props.shop.districtId] = value;
-    this.props.shop.provinceName = options[0].label;
-    this.props.shop.cityName = options[1].label;
-    this.props.shop.districtName = options[2] ? options[2].label : '';
-  }
-
-  handleCategoryChange(value, options) {
-    this.props.shop.categoryName = options.reduce(
-      (path, option) => path + (path ? '/' : '') + option.label,
-      ''
-    );
   }
 
   render() {
@@ -105,7 +126,6 @@ class ShopForm extends Component {
             })(
               <Select
                 showSearch
-                onSelect={this.handleBrandSelect}
                 placeholder="select a brand"
                 optionFilterProp="title"
               >
@@ -158,7 +178,6 @@ class ShopForm extends Component {
             })(
               <Cascader
                 options={areas}
-                onChange={this.handleResidenceChange}
               />
             )
           }
@@ -187,7 +206,6 @@ class ShopForm extends Component {
             })(
               <Cascader
                 options={category}
-                onChange={this.handleCategoryChange}
               />
             )
           }

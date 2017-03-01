@@ -1,3 +1,9 @@
 {
+  "parserOptions": {
+    "ecmaVersion": 6,
+    "ecmaFeatures": {
+      "experimentalObjectRestSpread": true
+    }
+  },
   "extends": "eslint-config-airbnb"
 }
