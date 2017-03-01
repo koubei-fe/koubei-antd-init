@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import ShopEntity from './ShopEntity';
 import AppLayout from '../AppLayout';
 import ShopForm from './ShopForm';
@@ -10,6 +10,14 @@ export default class ShopAdd extends Component {
   }
 
   render() {
-    return <AppLayout><ShopForm isEdit={false} shop={this.shop} router={this.props.router}/></AppLayout>;
+    return (
+      <AppLayout>
+        <ShopForm isEdit={false} shop={this.shop} router={this.props.router} />
+      </AppLayout>
+    );
   }
 }
+
+ShopAdd.propTypes = {
+  router: PropTypes.object,
+};

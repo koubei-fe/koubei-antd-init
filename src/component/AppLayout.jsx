@@ -1,9 +1,9 @@
 import React, { Component, PropTypes } from 'react';
-import { Layout, Menu, Breadcrumb, Icon } from 'antd';
+import { Layout, Menu, Icon } from 'antd';
 const { Header, Content, Footer, Sider } = Layout;
 const SubMenu = Menu.SubMenu;
 
-import menu from './data/menu'
+import menu from './data/menu';
 
 class AppLayout extends Component {
   constructor(props) {
@@ -12,16 +12,20 @@ class AppLayout extends Component {
       collapsed: false,
       mode: 'inline',
     };
+    this.handleClickMenuItem = this.handleClickMenuItem.bind(this);
   }
-  onCollapse = (collapsed) => {
+
+  onCollapse(collapsed) {
     this.setState({
       collapsed,
       mode: collapsed ? 'vertical' : 'inline',
     });
-  };
+  }
+
   handleClickMenuItem(item) {
     location.href = menu[item.key].link;
-  };
+  }
+
   render() {
     return (
       <Layout>
@@ -31,7 +35,12 @@ class AppLayout extends Component {
           onCollapse={this.onCollapse}
         >
           <div className="logo" />
-          <Menu theme="dark" mode={this.state.mode} defaultSelectedKeys={['6']} onClick={this.handleClickMenuItem.bind(this)}>
+          <Menu
+            theme="dark"
+            mode={this.state.mode}
+            defaultSelectedKeys={['6']}
+            onClick={this.handleClickMenuItem}
+          >
             <SubMenu
               key="sub2"
               title={<span><Icon type="team" /><span className="nav-text">门店</span></span>}
@@ -60,11 +69,12 @@ class AppLayout extends Component {
 }
 
 AppLayout.defaultProps = {
-  title: '口碑商户管理后台'
+  title: '口碑商户管理后台',
 };
 
 AppLayout.propTypes = {
-  title: PropTypes.string
+  title: PropTypes.string,
+  children: PropTypes.node,
 };
 
 export default AppLayout;

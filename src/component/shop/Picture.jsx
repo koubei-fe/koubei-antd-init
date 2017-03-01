@@ -2,27 +2,34 @@ import React, { Component } from 'react';
 import { Upload, Icon, Modal } from 'antd';
 
 class PicturesWall extends Component {
-  state = {
-    previewVisible: false,
-    previewImage: '',
-    fileList: [{
-      uid: -1,
-      name: 'xxx.png',
-      status: 'done',
-      url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
-    }],
-  };
+  constructor() {
+    super();
+    this.state = {
+      previewVisible: false,
+      previewImage: '',
+      fileList: [{
+        uid: -1,
+        name: 'xxx.png',
+        status: 'done',
+        url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
+      }],
+    };
+  }
 
-  handleCancel = () => this.setState({ previewVisible: false })
+  handleCancel() {
+    this.setState({ previewVisible: false });
+  }
 
-  handlePreview = (file) => {
+  handlePreview(file) {
     this.setState({
       previewImage: file.url || file.thumbUrl,
       previewVisible: true,
     });
   }
 
-  handleChange = ({ fileList }) => this.setState({ fileList })
+  handleChange({ fileList }) {
+    this.setState({ fileList });
+  }
 
   render() {
     const { previewVisible, previewImage, fileList } = this.state;

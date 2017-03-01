@@ -1,11 +1,11 @@
 export default {
-  '1': {
-    link: '#/user/logout'
+  1: {
+    link: '#/user/logout',
   },
-  '2': {
-    link: '#/shop/list'
+  2: {
+    link: '#/shop/list',
   },
-  '3': {
-    link: '#/shop/add'
-  }
-}
+  3: {
+    link: '#/shop/add',
+  },
+};

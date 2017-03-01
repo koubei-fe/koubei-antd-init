@@ -4,20 +4,20 @@ import ShopAdd from './ShopAdd';
 import ShopView from './ShopView';
 
 export default [
-	{
-		path: 'shop/list',
-		component: ShopList
-	},
-	{
-		path: 'shop/edit/:id',
-		component: ShopEdit
-	},
+  {
+    path: 'shop/list',
+    component: ShopList,
+  },
+  {
+    path: 'shop/edit/:id',
+    component: ShopEdit,
+  },
   {
     path: 'shop/view/:id',
-    component: ShopView
+    component: ShopView,
   },
-	{
-		path: 'shop/add',
-		component: ShopAdd
-	}
+  {
+    path: 'shop/add',
+    component: ShopAdd,
+  },
 ];

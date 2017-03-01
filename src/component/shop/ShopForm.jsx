@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import store from './store';
 import Picture from './Picture';
 import brands from './data/brands';
@@ -25,15 +25,19 @@ class ShopForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      submitting: false
+      submitting: false,
     };
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleBrandSelect = this.handleBrandSelect.bind(this);
+    this.handleCategoryChange = this.handleCategoryChange.bind(this);
+    this.handleResidenceChange = this.handleResidenceChange.bind(this);
   }
 
   handleSubmit(e) {
     e.preventDefault();
     const { validateFieldsAndScroll } = this.props.form;
     this.setState({
-      submitting: true
+      submitting: true,
     });
     validateFieldsAndScroll((err, values) => {
       if (!err) {
@@ -46,10 +50,10 @@ class ShopForm extends Component {
         this.props.router.push('shop/list');
       } else {
         this.setState({
-          submitting: false
-        })
+          submitting: false,
+        });
       }
-    })
+    });
   }
 
   handleBrandSelect(value, option) {
@@ -65,15 +69,18 @@ class ShopForm extends Component {
   }
 
   handleCategoryChange(value, options) {
-    this.props.shop.categoryName = options.reduce((path, option) => path + (path ? '/' : '') + option.label, '');
+    this.props.shop.categoryName = options.reduce(
+      (path, option) => path + (path ? '/' : '') + option.label,
+      ''
+    );
   }
 
   render() {
     const { getFieldDecorator } = this.props.form;
 
     const formItemLayout = {
-      labelCol: {span: 6},
-      wrapperCol: {span: 14},
+      labelCol: { span: 6 },
+      wrapperCol: { span: 14 },
     };
     const tailFormItemLayout = {
       wrapperCol: {
@@ -82,21 +89,23 @@ class ShopForm extends Component {
       },
     };
 
-    return (<Form onSubmit={this.handleSubmit.bind(this)}>
+    return (
+      <Form onSubmit={this.handleSubmit}>
         <FormItem
           {...formItemLayout}
           required
-          label="品牌名称">
+          label="品牌名称"
+        >
           {
             getFieldDecorator('brandId', {
               initialValue: this.props.shop.brandId,
               rules: [{
-                required: true
-              }]
+                required: true,
+              }],
             })(
               <Select
                 showSearch
-                onSelect={this.handleBrandSelect.bind(this)}
+                onSelect={this.handleBrandSelect}
                 placeholder="select a brand"
                 optionFilterProp="title"
               >
@@ -105,28 +114,29 @@ class ShopForm extends Component {
             )
           }
         </FormItem>
-
         <FormItem
           {...formItemLayout}
           required
-          label="门店名称">
+          label="门店名称"
+        >
           {
             getFieldDecorator('shopName', {
               initialValue: this.props.shop.shopName,
               rules: [{
-                required: true, message: 'Please input shop name.'
-              }]
+                required: true,
+                message: 'Please input shop name.',
+              }],
             })(
-              <Input style={{width: '50%'}} placeholder="e.g. 海底捞"/>
+              <Input style={{ width: '50%' }} placeholder="e.g. 海底捞" />
             )
           }
           <p className="shop-form-extra">
             <span className="warnning">请勿填错格式，导致开店失败。</span>
             正确示例如下：
-            <br/>1.老何炒面: 主店名=老何炒面，分店名不填
-            <br/>2.肯德基(大学城店): 主店名=肯德基，分店名=大学城店
-            <br/>3.兰州拉面(人民美食广场): 主店名=兰州拉面，分店名=人民美食广场
-            <br/><span className="warnning">括号不需要填写</span>
+            <br />1.老何炒面: 主店名=老何炒面，分店名不填
+            <br />2.肯德基(大学城店): 主店名=肯德基，分店名=大学城店
+            <br />3.兰州拉面(人民美食广场): 主店名=兰州拉面，分店名=人民美食广场
+            <br /><span className="warnning">括号不需要填写</span>
           </p>
         </FormItem>
 
@@ -137,26 +147,30 @@ class ShopForm extends Component {
         >
           {
             getFieldDecorator('residence', {
-              initialValue: [this.props.shop.provinceId, this.props.shop.cityId, this.props.shop.districtId],
+              initialValue: [
+                this.props.shop.provinceId,
+                this.props.shop.cityId,
+                this.props.shop.districtId,
+              ],
               rules: [{
-                required: true
-              }]
+                required: true,
+              }],
             })(
               <Cascader
                 options={areas}
-                onChange={this.handleResidenceChange.bind(this)}
+                onChange={this.handleResidenceChange}
               />
             )
           }
-          <FormItem style={{margin: '5px 0 0'}}>
+          <FormItem style={{ margin: '5px 0 0' }}>
             {
               getFieldDecorator('address', {
                 initialValue: this.props.shop.address,
                 rules: [{
-                  required: true
-                }]
+                  required: true,
+                }],
               })(
-                <Input/>
+                <Input />
               )
             }
           </FormItem>
@@ -169,11 +183,11 @@ class ShopForm extends Component {
         >
           {
             getFieldDecorator('categoryIds', {
-              initialValue: this.props.shop.categoryIds
+              initialValue: this.props.shop.categoryIds,
             })(
               <Cascader
                 options={category}
-                onChange={this.handleCategoryChange.bind(this)}
+                onChange={this.handleCategoryChange}
               />
             )
           }
@@ -193,10 +207,10 @@ class ShopForm extends Component {
                     validateFirst: true,
                     rules: [{
                       required: true,
-                      message: '此项必填'
-                    }]
+                      message: '此项必填',
+                    }],
                   })(
-                    <Input/>
+                    <Input />
                   )
                 }
               </FormItem>
@@ -205,7 +219,7 @@ class ShopForm extends Component {
               <FormItem>
                 {
                   getFieldDecorator('mobileNo2', {})(
-                    <Input/>
+                    <Input />
                   )
                 }
               </FormItem>
@@ -214,7 +228,7 @@ class ShopForm extends Component {
               <FormItem>
                 {
                   getFieldDecorator('mobileNo3', {})(
-                    <Input/>
+                    <Input />
                   )
                 }
               </FormItem>
@@ -223,7 +237,7 @@ class ShopForm extends Component {
               <FormItem>
                 {
                   getFieldDecorator('mobileNo4', {})(
-                    <Input/>
+                    <Input />
                   )
                 }
               </FormItem>
@@ -240,8 +254,8 @@ class ShopForm extends Component {
             getFieldDecorator('payType', {
               initialValue: this.props.shop.payType || PAY_TYPE.SELF,
               rules: [{
-                required: true
-              }]
+                required: true,
+              }],
             })(
               <RadioGroup>
                 <Radio value={PAY_TYPE.SELF}>{PAY_TYPE_TEXT[PAY_TYPE.SELF]}</Radio>
@@ -256,8 +270,11 @@ class ShopForm extends Component {
           label="品牌Logo"
           required
         >
-          <Picture/>
-          <p className="shop-form-extra"><span className="warnning">仅支持上传一张，LOGO将在支付宝-口碑页面展示。</span>不可有水印、须实景图，如上传装修效果图则将被驳回。不超过10M，格式：bmp，png，jpeg，gif。建议尺寸在500px＊500px以上（更容易通过审核）
+          <Picture />
+          <p className="shop-form-extra">
+            <span className="warnning">仅支持上传一张，LOGO将在支付宝-口碑页面展示。</span>
+            不可有水印、须实景图，如上传装修效果图则将被驳回。不超过10M，格式：bmp，png，jpeg，gif。
+            建议尺寸在500px＊500px以上（更容易通过审核）
           </p>
         </FormItem>
 
@@ -271,9 +288,9 @@ class ShopForm extends Component {
               initialValue: this.props.shop.receiveUserId,
               rules: [{
                 required: true,
-              }]
+              }],
             })(
-              <Input/>
+              <Input />
             )
           }
         </FormItem>
@@ -282,8 +299,15 @@ class ShopForm extends Component {
           <Button type="primary" htmlType="submit" loading={this.state.submitting}>提交</Button>
         </FormItem>
       </Form>
-    )
+    );
   }
 }
+
+ShopForm.propTypes = {
+  form: PropTypes.object,
+  shop: PropTypes.object,
+  isEdit: PropTypes.bool,
+  router: PropTypes.object,
+};
 
 export default Form.create()(ShopForm);
