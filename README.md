@@ -14,7 +14,7 @@
 
 这是口碑针对Ant Design开发的demo，一个很有参考价值的 React 上手示例。
 
-https://github.com/yulongheli/koubei-antd-init
+https://github.com/koubei-fe/koubei-antdm-init
 
 ```bash
 $ cd ~ && mkdir git && cd git
