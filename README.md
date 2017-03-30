@@ -59,7 +59,7 @@ npm 源依赖配置文件，其中 `devDependencies` 配置项，不建议改动
 
 ### dist
 
-dist 作为项目输出目录，包含所有编译生成的 css、js 文件，用于部署到各个环境。
+dist 作为项目输出目录，存放所有编译生成的 css、js 文件，用于部署到各个环境。
 
 ### 使用组件
 
@@ -94,7 +94,7 @@ class App extends React.Component {
 ReactDOM.render(<App />, document.getElementById('root'));
 ```
 
-> 你可以在 [Ant Design官网](https://ant.design/components/button-cn/) 选用更多组件。
+> 你可以在 [Ant Design 官网](https://ant.design/components/button-cn/) 选用更多组件。
 > 也可以使用口碑团队封装的业务组件 [Hermes React](http://hermes.koubei.com/components/img-upload/)
 
 ### 开发调试
