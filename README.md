@@ -18,7 +18,7 @@ https://github.com/koubei-fe/koubei-antdm-init
 
 ```bash
 $ cd ~ && mkdir git && cd git
-$ git clone https://github.com/yulongheli/koubei-antd-init.git
+$ git clone https://github.com/koubei-fe/koubei-antd-init.git
 ```
 
 ### 目录结构规范
@@ -53,7 +53,7 @@ npm源依赖配置文件，其中devDependencies配置项，不建议改动。
 
 ### src
 
-项目中所有 JS 源码应当存放在此目录下，且所有JS文件编写应当「SHOULD」遵循[Javascript 编码规范](https://github.com/airbnb/javascript)。
+项目中所有 JS 源码应当存放在此目录下，且所有JS文件编写应当遵循[Javascript 编码规范](https://github.com/airbnb/javascript)。
 
 其中common目录下存放项目共用的模块和组件，component目录存放具体的业务模块，如：shop、user，entry目录下存放页面的入口文件。
 
