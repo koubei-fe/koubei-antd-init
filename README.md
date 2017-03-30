@@ -1,4 +1,4 @@
-口碑团队针对Ant Design React，整理的一篇入门文档。
+口碑团队针对 Ant Design React，整理的一篇入门文档。
 
 ---
 
@@ -10,9 +10,9 @@
 实际项目开发中，你会需要对 ES2015 和 JSX 代码的构建、调试、代理、打包部署等一系列工程化的需求。
 我们提供了一套 `npm` + `webpack` 的开发工具链来辅助开发，下面我们用一个简单的实例来说明。
 
-### 下载脚手架demo
+### 下载脚手架 demo
 
-这是口碑针对Ant Design开发的demo，一个很有参考价值的 React 上手示例。
+这是口碑针对 Ant Design React 开发的 demo，一个很有参考价值的 React 上手示例。
 
 https://github.com/koubei-fe/koubei-antdm-init
 
@@ -41,25 +41,25 @@ $ git clone https://github.com/koubei-fe/koubei-antd-init.git
 
 ### .eslint
 
-设置eslint规则的配置文件。
+设置 `eslint` 规则的配置文件。
 
 ### .webpack.config.js
 
-webpack配置文件，脚手架里面webpack.config.js是优化配置，如果对webpack构建不熟悉，不建议改动。
+webpack 配置文件，脚手架里面 `webpack.config.js` 是优化配置，如果对 webpack 构建不熟悉，不建议改动。
 
 ### package.json
 
-npm源依赖配置文件，其中devDependencies配置项，不建议改动。
+npm 源依赖配置文件，其中 `devDependencies` 配置项，不建议改动。
 
 ### src
 
-项目中所有 JS 源码应当存放在此目录下，且所有JS文件编写应当遵循[Javascript 编码规范](https://github.com/airbnb/javascript)。
+项目中所有 JS 源码应当存放在此目录下，且所有 JS 文件编写应当遵循 [Javascript 编码规范](https://github.com/airbnb/javascript)。
 
-其中common目录下存放项目共用的模块和组件，component目录存放具体的业务模块，如：shop、user，entry目录下存放页面的入口文件。
+其中 common 目录下存放项目共用的模块和组件，component 目录存放具体的业务模块，如：shop、user，entry 目录下存放页面的入口文件。
 
 ### dist
 
-dist 作为项目输出目录，所有编译生成css、js文件，用于部署各个环境。
+dist 作为项目输出目录，包含所有编译生成的 css、js 文件，用于部署到各个环境。
 
 ### 使用组件
 
@@ -94,12 +94,12 @@ class App extends React.Component {
 ReactDOM.render(<App />, document.getElementById('root'));
 ```
 
-> 你可以在[Ant Design官网](https://ant.design/components/button-cn/)选用更多组件。
-> 也可以使用口碑团队封装的业务组件[Hermes React](http://hermes.koubei.com/components/img-upload/)
+> 你可以在 [Ant Design官网](https://ant.design/components/button-cn/) 选用更多组件。
+> 也可以使用口碑团队封装的业务组件 [Hermes React](http://hermes.koubei.com/components/img-upload/)
 
 ### 开发调试
 
-安装项目依赖的npm模块
+安装项目依赖的 npm 模块
 
 ```bash
 $ npm install
